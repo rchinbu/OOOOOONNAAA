@@ -46,6 +46,10 @@ public class Card {
 		return c.cardColor;
 	}
 
+	//public getImageAddress() {
+
+	//}
+
 	public boolean canPlay(Card currentCard, Card previousCard) {
 		if((getCardValue(currentCard) == getCardValue(previousCard)) ||
 				(getCardColor(currentCard) == getCardColor(previousCard)) ||
