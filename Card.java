@@ -3,8 +3,10 @@ public class Card {
 	Color color;
 	
 	public Card(Color color, Number number) {
+		System.out.println("BAGEL");
 		this.color = color;
 		this.number = number;
+		System.out.println("Yogurt");
 	}
 
 	public Color getColor() {
@@ -13,6 +15,10 @@ public class Card {
 
 	public Number getNumber() {
 		return this.number;
+	}
+
+	public String toString() {
+		return this.color.toString() + " " + this.number.toString();
 	}
 
 	public boolean isValidPlay(Card card) {
