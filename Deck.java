@@ -7,8 +7,12 @@ public class Deck {
 	static {
 		for (Color color : Color.normal_colors()) {
 			for (Number number : Number.normal_numbers()) {
-				deck.add(new Card(color, number));
-				deck.add(new Card(color, number));
+				if(number == Number.normal_numbers()[0]) {
+					deck.add(new Card(color, number));
+				} else {
+					deck.add(new Card(color, number));
+					deck.add(new Card(color, number));
+				}
 			}
 			for (Number number : Number.special_nonwild()) {
 				deck.add(new Card(color, number));
@@ -20,6 +24,7 @@ public class Deck {
 		}
 	}
 	
+	public static ArrayList<Card> 
 	
 
 	public static void main(String[] args) {
