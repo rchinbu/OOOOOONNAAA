@@ -2,8 +2,7 @@ import java.util.*;
 
 public class Deck {
 
-	public static ArrayList<Card> deck = new ArrayList<>();
-
+	static ArrayList<Card> deck = new ArrayList<>();
 	static {
 		for (Color color : Color.normal_colors()) {
 			for (Number number : Number.normal_numbers()) {
@@ -24,13 +23,45 @@ public class Deck {
 		}
 	}
 	
-	public static ArrayList<Card> 
+	static Queue<Card> drawPile = new LinkedList<>();
 	
 
-	public static void main(String[] args) {
-		for(int i = 0; i < deck.size(); i++) {
-			System.out.println(deck.get(i));
+	//Constructor
+	public Deck() {
+		Random rand = new Random();
+		while(! deck.isEmpty()) {
+			drawPile.add(deck.get(rand.nextInt(deck.size())));
 		}
+	}
+
+	//DrawPile methods
+	
+	Random randomList = new Random();
+	private void shuffle() {
+		ArrayList<Card> copyDrawPile = new ArrayList<>();
+		while(drawPile.peek() != null) {
+			copyDrawPile.add(drawPile.remove());
+		}
+		while(! copyDrawPile.isEmpty()) {
+			drawPile.add(copyDrawPile.remove(randomList.nextInt(copyDrawPile.size())));
+		}
+	}
+		 
+	
+	public Card draw() {
+		if(drawPile.peek() == null) {
+			this.getNewDrawPile();
+		}
+		return drawPile.remove();
+	}
+
+	//DiscardPile Methods
+	
+	private void getNewDrawPile() { //Please implement this
+									//It just puts everything but the top card of the
+									//discard pile into the Draw pile and then shuffles
+		//code
+		this.shuffle();
 	}
 
 }
