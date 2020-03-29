@@ -1,3 +1,6 @@
+import java.util.*;
+
+
 public class Player {
 
 	ArrayList<Card> hand = new ArrayList<>();
@@ -9,5 +12,4 @@ public Player()
 	hand.add(deck.draw());
 	}
 }
-
 }
