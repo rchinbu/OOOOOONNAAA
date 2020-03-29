@@ -62,13 +62,14 @@ public class Deck {
 		(for int i=0; i<discardPile.size(); i++) {
 			drawPile.add(discardPile.remove());
 		}
-		drawPile.shuffle;
-		//this.shuffle();
+		this.shuffle();
 	}
 
 	public void discardCard(Card) {
 		discardPile.add(Card);
 	}
+	
+	//peek at top card method
 }
 
 
