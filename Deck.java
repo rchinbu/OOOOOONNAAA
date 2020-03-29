@@ -24,6 +24,7 @@ public class Deck {
 	}
 	
 	static Queue<Card> drawPile = new LinkedList<>();
+	static Queue<Card> drawPile = new LinkedList<>();
 	
 
 	//Constructor
@@ -57,13 +58,18 @@ public class Deck {
 
 	//DiscardPile Methods
 	
-	private void getNewDrawPile() { //Please implement this
+	private void getNewDrawPile() { 
 									//It just puts everything but the top card of the
-									//discard pile into the Draw pile and then shuffles
-		//code
-		this.shuffle();
+		(for int i=0; i<discardPile.size(); i++) {
+			drawPile.add(discardPile.remove());
+		}
+		drawPile.shuffle;
+		//this.shuffle();
 	}
 
+	public void discardCard(Card) {
+		discardPile.add(Card);
+	}
 }
 
 
