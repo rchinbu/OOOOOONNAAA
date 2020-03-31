@@ -71,7 +71,3 @@ public class Deck {
 	}
 }
 
-
-/* Problems:
- * I don't know if you can even do the for (variable in array) {} iterator 
- * This currently adds two 0s for each color, which, of course, is one extra per color. */
