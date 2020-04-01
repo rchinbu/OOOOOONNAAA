@@ -24,7 +24,7 @@ public class Deck {
 	}
 	
 	static Queue<Card> drawPile = new LinkedList<>();
-	static Queue<Card> discardPile = new LinkedList<>();
+	static Stack<Card> discardPile = new LinkedList<>();
 	
 
 	//Constructor
@@ -58,17 +58,21 @@ public class Deck {
 
 	//DiscardPile Methods
 	
-	private void getNewDrawPile() {						
-		(for int i=0; i<discardPile.size(); i++) {
-			drawPile.add(discardPile.remove());
+	private void getNewDrawPile() {	
+		Card top = discardPile.pop();
+		while (!discardPile.isEmpty()) {
+			drawPile.add(discardPile.pop());
 		}
+		discardPile.push(top);
 		this.shuffle();
 	}
 
 	public void discardCard(Card) {
-		discardPile.add(Card);
+		discardPile.push(Card);
 	}
 	
-	//peek at top card method
+	private Card topDiscardCard() { //should this be public?
+		return discardPile.peek();
+	}
 }
 
