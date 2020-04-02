@@ -1,21 +1,34 @@
-public class GameState {
-	static Color color;
-	static Number number;
-	static int turn;
-	static ArrayList<Player> players;
+import java.util.ArrayList;
 
-	public GameState(players, Color color, Number number) {
-		this.players = players
+public class GameState {
+	Color color;
+	Number number;
+	int turn;
+	ArrayList<Player> players;
+	int direction;
+
+	public GameState(ArrayList<Player> players, Color color, Number number) {
+		this.players = players;
 		this.color = color;
 		this.number = number;
 		turn = 0;
+		direction = 1;
 	}
 
-	public static Player update(Color color, Number number) {
+	public Player update(Color color, Number number) {
 		this.color = color;
 		this.number = number;
-		turn = (turn + 1) % players.size();
-		return ArrayList.get(turn);
+		if (number == Number.REVERSE) {
+			direction = -1;
+			turn = (turn + direction) % players.size();
+			return players.get(turn);
+		} else if (number == Number.SKIP || number == Number.DRAW2 || number == Number.DRAW4) {
+			turn = (turn + direction * 2) % players.size();
+			return players.get(turn);
+		} else {
+			turn = (turn + direction) % players.size();
+			return players.get(turn);
+		}
 	}
 
 	public Color getColor() {
@@ -24,5 +37,10 @@ public class GameState {
 
 	public Number getNumber() {
 		return number;
+	
+	}
+
+	public Player getNextPlayer() {
+		return players.get(turn);
 	}
 }
