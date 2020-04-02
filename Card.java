@@ -19,12 +19,12 @@ public class Card {
 		return this.color.toString() + " " + this.number.toString();
 	}
 
-	public boolean isValidPlay(Card card) {
-		if (this.color == card.getColor()) {
+	public boolean isValidPlay(Color color, Number number) {
+		if (this.color == color) {
 			return true;
 		} else if (this.color == color.WILD) {
 			return true;
-		} else if (this.number == card.getNumber()) {
+		} else if (this.number == number) {
 			return true;
 		} else {
 			return false;

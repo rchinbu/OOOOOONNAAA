@@ -24,6 +24,7 @@ public class Deck {
 	}
 	
 	static Queue<Card> drawPile = new LinkedList<>();
+	static Stack<Card> discardPile = new LinkedList<>();
 	
 
 	//Constructor
@@ -57,16 +58,21 @@ public class Deck {
 
 	//DiscardPile Methods
 	
-	private void getNewDrawPile() { //Please implement this
-									//It just puts everything but the top card of the
-									//discard pile into the Draw pile and then shuffles
-		//code
+	private void getNewDrawPile() {	
+		Card top = discardPile.pop();
+		while (!discardPile.isEmpty()) {
+			drawPile.add(discardPile.pop());
+		}
+		discardPile.push(top);
 		this.shuffle();
 	}
 
+	public void discardCard(Card) {
+		discardPile.push(Card);
+	}
+	
+	private Card topDiscardCard() { //should this be public?
+		return discardPile.peek();
+	}
 }
 
-
-/* Problems:
- * I don't know if you can even do the for (variable in array) {} iterator 
- * This currently adds two 0s for each color, which, of course, is one extra per color. */
