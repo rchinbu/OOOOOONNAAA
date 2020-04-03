@@ -24,7 +24,7 @@ public class Deck {
 	}
 	
 	static Queue<Card> drawPile = new LinkedList<>();
-	static Stack<Card> discardPile = new LinkedList<>();
+	static Stack<Card> discardPile = new Stack<>();
 	
 
 	//Constructor
@@ -67,8 +67,8 @@ public class Deck {
 		this.shuffle();
 	}
 
-	public void discardCard(Card) {
-		discardPile.push(Card);
+	public void discardCard(Card card) {
+		discardPile.push(card);
 	}
 	
 	private Card topDiscardCard() { //should this be public?

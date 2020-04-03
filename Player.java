@@ -3,21 +3,26 @@ import java.util.*;
 
 public class Player {
 
-public Player()
-{
-
 	ArrayList<Card> hand = new ArrayList<Card>();
-}
 
-public void getCard(Card card)
-{
-hand.add(card);
-}
+	String name;
 
-public void removeCard(Card card)
-{
-hand.remove(card);
-}
+	Deck deck;
 
+	public Player(String name, Deck deck) {
+		this.name = name;
+		this.deck = deck;
+		for(int i = 0; i < 7; i++) {
+		   hand.add(deck.draw());
+		}
+	}
+
+	public void getCards() {
+		hand.add(deck.draw());
+	}
+
+	public void playCard(int cardPosition) {
+		deck.discardCard(hand.remove(cardPosition));
+	}
 
 }
