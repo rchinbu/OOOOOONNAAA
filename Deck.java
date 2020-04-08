@@ -71,7 +71,7 @@ public class Deck {
 		discardPile.push(card);
 	}
 	
-	private Card topDiscardCard() { //should this be public?
+	public Card topDiscardCard() {
 		return discardPile.peek();
 	}
 }
