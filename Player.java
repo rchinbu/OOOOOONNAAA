@@ -7,22 +7,17 @@ public class Player {
 
 	String name;
 
-	Deck deck;
-
-	public Player(String name, Deck deck) {
+	public Player(String name, ArrayList<Card> hand) {
 		this.name = name;
-		this.deck = deck;
-		for(int i = 0; i < 7; i++) {
-		   hand.add(deck.draw());
-		}
+		this.hand = hand;
 	}
 
-	public void getCards() {
-		hand.add(deck.draw());
+	public void getCards(Card card) {
+		hand.add(card);
 	}
 
-	public void playCard(int cardPosition) {
-		deck.discardCard(hand.remove(cardPosition));
+	public Card playCard() {
+		return hand.remove(cardPosition);
 	}
 
 }
