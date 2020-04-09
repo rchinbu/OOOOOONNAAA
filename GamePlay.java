@@ -15,39 +15,43 @@ public class GamePlay {
                 Deck gamePiles = new Deck();
 
                 //initialize the four players
-                //rules says we should pass one card out to each player in a circle until all have seven, should we do something about this?
                 //Riley changed player
-		//Maggie think we should give everyplayer 7 cards here in a loop
-                Player first = new Player("Maggie", gamePiles);
-                Player second = new Player("Julia", gamePiles);
-                Player third = new Player("Riley", gamePiles);
-                Player fourth = new Player("Tara", gamePiles);
 
-                ArrayList<Player> players = new ArrayList<>();
+		ArrayList<Player> players = new ArrayList<>();
 
-                players.add(first);
-                players.add(second);
-                players.add(third);
-                players.add(fourth);
+		players.add(new Player("Maggie"));
+                players.add(new Player("Julia"));
+                players.add(new Player("Riley"));
+                players.add(new Player("Tara"));
+
+		//Pass 7 cards to each person
+		for (int i = 0; i < 7; i++) {	
+			for (Player player : players) {
+				player.giveCard(gamePiles.draw());
+			}
+		}
 
                 //after cards are dealt out, top draw pile card goes onto discard pile
-                gamePiles.discardCard(gamePiles.drawPile.remove());
+                gamePiles.discardCard(gamePiles.draw());
 
+		//TODO: if the first card is a special card, there are some things that need to happen (listed in the rules)
                 GameState gameState = new GameState(players, gamePiles.topDiscardCard().getColor(), gamePiles.topDiscardCard().getNumber());
+
 
                 //game
                 while (!hasWinner) {
 
                         //added for the sake of knowing what player we are on in the preliminary stages
-                        System.out.println("\nHi, " + players.get(gameState.turn).name + "!");
+                        System.out.println("\nHi, " + GameState.getTurn().name + "!");
                         ArrayList<Card> available = new ArrayList<>();
-                        for (Card card : players.get(gameState.turn).hand) {
+                        for (Card card : gameState.getTurn.hand) {
                                 if (card.isValidPlay(gamePiles.topDiscardCard().getColor(), gamePiles.topDiscardCard().getNumber())) {
                                         available.add(card);
                                 }
                         }
 
                         //card that player has to match
+			//CONCERN: we need to let players know what the color is, since that's specified by the user.
                         System.out.println("Here is the card to play to: " + gamePiles.topDiscardCard().toString() + "\n");
 
                         //Player has playable cards
@@ -121,12 +125,12 @@ public class GamePlay {
                                                 gamePiles.discardCard(temp);
                                         //player decided not to play card
                                         } else if (in.equals("no")) {
-                                                players.get(gameState.turn).hand.add(temp);
+                                                gameState.turn().giveCard(temp);
                                         }
                                 //draw is invalid
                                 } else {
                                         System.out.println("Unfortunately, this card can't be played, we'll add it to your hand for now.\n");
-                                        players.get(gameState.turn).hand.add(temp);
+                                                gameState.turn().giveCard(temp);
                                         }
 
                         }
@@ -153,7 +157,7 @@ public class GamePlay {
 	{
 		Random rand = new Random();
 		int cardPosition = rand.nextInt(deck.size());
-		name.getCards(deck.remove(cardPosition));
+		name.giveCard(deck.remove(cardPosition));
 	}
 
 	//discard a choosen card from player's hand to drawpile
