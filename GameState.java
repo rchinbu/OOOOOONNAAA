@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class GameState {
-	Color color;
-	Number number;
-	int turn;
-	ArrayList<Player> players;
-	int direction;
+	private Color color;
+	private Number number;
+	private int turn;
+	private ArrayList<Player> players;
+	private int direction;
 
 	public GameState(ArrayList<Player> players, Color color, Number number) {
 		this.players = players;
@@ -40,7 +40,11 @@ public class GameState {
 	
 	}
 
-	public Player getNextPlayer() {
-		return players.get(turn);
+	public Player getTurn() {
+		return players.get(turn)
+	}
+	
+	public Player getNextTurn() {
+		return players.get(turn + 1);
 	}
 }
