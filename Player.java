@@ -16,13 +16,14 @@ public class Player {
                         this.getCards();
                 }
 		//putting comments around it to know we have to work on it
+		//I think this for loop should be in GamePlay.java as its related to deck
 	}
 
 	public void getCards(Card card) {
 		hand.add(card);
 	}
 
-	public Card playCard() {
+	public Card playCard( int cardPosition) {
 		return hand.remove(cardPosition);
 	}
 
