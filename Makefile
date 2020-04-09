@@ -9,17 +9,13 @@ CLASSES = \
 		Color.java \
 		Card.java \
 		Deck.java 
-<<<<<<< HEAD
-#DrawPile.java \
-#DiscardPile.java \
-#Hand.java \
-#Player.java\
-#GameState.java \
-=======
+		DrawPile.java \
+		DiscardPile.java \
+		Player.java\
+		GameState.java \
 		Player.java \
 		GameState.java \
->>>>>>> 77b2728743e96fdda4611f672f6335df05e5b178
-#GamePlay.java \
+		GamePlay.java \
 
 default: classes
 
