@@ -161,7 +161,7 @@ public class GamePlay {
 	{
 		//find the card's position 
 		int cardPos =0;
-		for (int i, i< name.hand.size();i++){
+		for (int i; i < name.hand.size(); i++){
 			if (name.hand.get(i)== card){	
 				cardPos=i;
 				break;
