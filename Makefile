@@ -12,7 +12,7 @@ CLASSES = \
 #DrawPile.java \
 #DiscardPile.java \
 #Hand.java \
-#Player.java \
+#Player.java\
 #GameState.java \
 #GamePlay.java \
 
