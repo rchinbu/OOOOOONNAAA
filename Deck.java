@@ -2,9 +2,9 @@ import java.util.*;
 
 public class Deck {
 
-        static Queue<Card> drawPile = new LinkedList<>();
-        static Stack<Card> discardPile = new Stack<>();
-        static ArrayList<Card> deck = new ArrayList<>();
+        private static Queue<Card> drawPile = new LinkedList<>();
+        private static Stack<Card> discardPile = new Stack<>();
+        private static ArrayList<Card> deck = new ArrayList<>();
 
         //Constructor
         public Deck() {
