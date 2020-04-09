@@ -24,7 +24,7 @@ public class Deck {
 	}
 	
 	static Queue<Card> drawPile = new LinkedList<>();
-	static Queue<Card> discardPile = new LinkedList<>();
+	static Stack<Card> discardPile = new Stack<>();
 	
 
 	//Constructor
@@ -58,21 +58,21 @@ public class Deck {
 
 	//DiscardPile Methods
 	
-	private void getNewDrawPile() {						
-		(for int i=0; i<discardPile.size(); i++) {
-			drawPile.add(discardPile.remove());
+	private void getNewDrawPile() {	
+		Card top = discardPile.pop();
+		while (!discardPile.isEmpty()) {
+			drawPile.add(discardPile.pop());
 		}
+		discardPile.push(top);
 		this.shuffle();
 	}
 
-	public void discardCard(Card) {
-		discardPile.add(Card);
+	public void discardCard(Card card) {
+		discardPile.push(card);
 	}
 	
-	//peek at top card method
+	public Card topDiscardCard() {
+		return discardPile.peek();
+	}
 }
 
-
-/* Problems:
- * I don't know if you can even do the for (variable in array) {} iterator 
- * This currently adds two 0s for each color, which, of course, is one extra per color. */
