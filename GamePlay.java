@@ -42,9 +42,9 @@ public class GamePlay {
                 while (!hasWinner) {
 
                         //added for the sake of knowing what player we are on in the preliminary stages
-                        System.out.println("\nHi, " + GameState.getTurn().name + "!");
+                        System.out.println("\nHi, " + gameState.getTurn().name + "!");
                         ArrayList<Card> available = new ArrayList<>();
-                        for (Card card : gameState.getTurn.hand) {
+                        for (Card card : gameState.getTurn().hand) {
                                 if (card.isValidPlay(gamePiles.topDiscardCard().getColor(), gamePiles.topDiscardCard().getNumber())) {
                                         available.add(card);
                                 }
@@ -78,7 +78,7 @@ public class GamePlay {
                                                 if (col.equals(card.getColor().toString()) && num.equals(card.getNumber().toString())) {
                                                         Card temp = new Card(card.getColor(), card.getNumber());
                                                         gamePiles.discardCard(temp);
-                                                        players.get(gameState.turn).hand.remove(card);
+                                                        gameState.getTurn().hand.remove(card);
                                                         break;
                                                 }
                                         }
@@ -98,13 +98,13 @@ public class GamePlay {
 
                                                 //player does not want to put it down
                                                         } else if (in.equals("no")) {
-                                                                players.get(gameState.turn).hand.add(temp);
+                                                                gameState.getTurn().giveCard(temp);
                                                         }
                                         //drawn card is not a valid play
                                         } else {
 
                                                 System.out.println("\nHere is your draw!: \n" + temp.toString() + "\nThis card can't be played right now, we'll add it to your hand for now.\n");
-                                                players.get(gameState.turn).hand.add(temp);
+                                                gameState.getTurn().giveCard(temp);
                                         }
                                 }
                         //if player has no viable cards to play
@@ -125,12 +125,12 @@ public class GamePlay {
                                                 gamePiles.discardCard(temp);
                                         //player decided not to play card
                                         } else if (in.equals("no")) {
-                                                gameState.turn().giveCard(temp);
+                                                gameState.getTurn().giveCard(temp);
                                         }
                                 //draw is invalid
                                 } else {
                                         System.out.println("Unfortunately, this card can't be played, we'll add it to your hand for now.\n");
-                                                gameState.turn().giveCard(temp);
+                                                gameState.getTurn().giveCard(temp);
                                         }
 
                         }
@@ -151,17 +151,18 @@ public class GamePlay {
                 }
         }
 
-//functions relates to Player.java
+/*
+ * //functions relates to Player.java
 	//get a random card from deck and put into player's hand
-	public void getcard(Player name, Deck deck) 
+	//public void getcard(Player name, Deck deck) 
 	{
 		Random rand = new Random();
-		int cardPosition = rand.nextInt(deck.size());
+		int cardPosition = rand.nextInt(deck.getSize());
 		name.giveCard(deck.remove(cardPosition));
 	}
 
 	//discard a choosen card from player's hand to drawpile
-	public void discardCard(Player name,card card,Deck deck)
+	//public void discardCard(Player name, Card card, Deck deck)
 	{
 		//find the card's position 
 		int cardPos =0;
@@ -176,7 +177,7 @@ public class GamePlay {
 		name.playCard(cardPos);
 
 		//add this card to the discardPile
-		deck.disCard(card);
+		deck.discardCard(card);
 
 	}
 
@@ -187,12 +188,14 @@ public class GamePlay {
 	}
 
 	// return true if player is out of cards return false otherwise
-	public bool isPlayerEmpty(Player name ) 
+	public boolean isPlayerEmpty(Player name ) 
 	{
 	if (name.hand.isEmpty())
 		return true;
 	else
 		return false;
 	}
+
+*/
 
 }

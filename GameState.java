@@ -20,13 +20,13 @@ public class GameState {
 		this.number = number;
 		if (number == Number.REVERSE) {
 			direction = -1;
-			turn = (turn + direction) % players.size();
+			turn = (turn + direction + players.size()) % players.size();
 			return players.get(turn);
 		} else if (number == Number.SKIP || number == Number.DRAW2 || number == Number.DRAW4) {
-			turn = (turn + direction * 2) % players.size();
+			turn = (turn + direction * 2 + players.size()) % players.size();
 			return players.get(turn);
 		} else {
-			turn = (turn + direction) % players.size();
+			turn = (turn + direction + players.size()) % players.size();
 			return players.get(turn);
 		}
 	}
@@ -41,7 +41,7 @@ public class GameState {
 	}
 
 	public Player getTurn() {
-		return players.get(turn)
+		return players.get(turn);
 	}
 	
 	public Player getNextTurn() {
