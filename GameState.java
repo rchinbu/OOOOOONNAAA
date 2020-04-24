@@ -13,18 +13,41 @@ public class GameState {
 		this.number = number;
 		turn = 0;
 		direction = 1;
+		if (
+			number == Number.SKIP ||
+			number == Number.DRAW2 ||
+			number == Number.DRAW4 ||
+			number == Number.REVERSE
+		) {
+			specialCase(number);
+		}
 	}
 
-	public Player update(Color color, Number number) {
-		this.color = color;
-		this.number = number;
+	private Player specialCase(Number number) {
 		if (number == Number.REVERSE) {
 			direction = -1;
 			turn = (turn + direction + players.size()) % players.size();
 			return players.get(turn);
-		} else if (number == Number.SKIP || number == Number.DRAW2 || number == Number.DRAW4) {
+		} else {
 			turn = (turn + direction * 2 + players.size()) % players.size();
 			return players.get(turn);
+		}
+	}
+
+	public Player update(Color color, Number number) {
+		if (color == null || number == null) {
+			turn = (turn + direction + players.size()) % players.size();
+			return players.get(turn);
+		}
+		this.color = color;
+		this.number = number;
+		if (
+			number == Number.SKIP || 
+			number == Number.DRAW2 || 
+			number == Number.DRAW4 || 
+			number == Number.REVERSE
+		) {
+			return specialCase(number);
 		} else {
 			turn = (turn + direction + players.size()) % players.size();
 			return players.get(turn);
