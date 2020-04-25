@@ -34,7 +34,7 @@ public class Deck {
         //DrawPile methods
         private void shuffle() {
                 ArrayList<Card> copyDrawPile = new ArrayList<>();
-                while(drawPile.peek != null) {
+                while(drawPile.peek() != null) {
                         copyDrawPile.add(drawPile.remove());
                 }
                 Collections.shuffle(copyDrawPile);
@@ -57,7 +57,7 @@ public class Deck {
                         drawPile.add(discardPile.pop());
                 }
                 discardPile.push(top);
-                this.shuffle;
+                this.shuffle();
         }
         public void discardCard(Card card) {
                 discardPile.push(card);
