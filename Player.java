@@ -1,7 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-
-public class Player {
+public class Player implements Serializable {
 
         ArrayList<Card> hand;
         String name;
@@ -22,6 +22,10 @@ public class Player {
                 hand.add(card);
         }
 
+        public void removeCard(Card card) {
+                hand.remove(card);
+        }
+        
         public Card playCard(Color lastColor, Number lastNumber, Scanner input) {
                 ArrayList<Card> available = new ArrayList<>();
                 for (Card card : hand) {
