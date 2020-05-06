@@ -1,4 +1,5 @@
-public class Card {
+import java.io.*;
+public class Card implements Serializable {
         Number number;
         Color color;
 
