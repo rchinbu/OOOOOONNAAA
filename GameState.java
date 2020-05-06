@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class GameState {
+public class GameState implements Serializable {
         private Color color;
         private Number number;
         private int turn;
