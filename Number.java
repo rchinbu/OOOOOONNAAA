@@ -1,4 +1,6 @@
-public enum Number {
+import java.io.Serializable;
+
+public enum Number implements Serializable {
         ZERO,
         ONE,
         TWO,
