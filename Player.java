@@ -1,5 +1,5 @@
 import java.util.*;
-import java.io.*;
+import java.io.Serializable;
 
 public class Player implements Serializable {
 
@@ -25,7 +25,7 @@ public class Player implements Serializable {
         public void removeCard(Card card) {
                 hand.remove(card);
         }
-        
+
         public Card playCard(Color lastColor, Number lastNumber, Scanner input) {
                 ArrayList<Card> available = new ArrayList<>();
                 for (Card card : hand) {
@@ -91,14 +91,16 @@ public class Player implements Serializable {
                                 System.out.println("Would you like to play it? Y/N");
                                 String response = input.nextLine();
                                 if (response.equals("Y")) return newCard;
-                                else if (response.equals("N")) return null;
-                                else {
+                                else if (response.equals("N")) {
+                                        giveCard(newCard);
+                                        return null;
+                                } else {
                                         System.out.println("Invalid input! Try again.");
                                 }
                         }
                 } else {
+                        giveCard(newCard);
                         return null;
                 }
         }
-
 }
