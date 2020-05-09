@@ -1,11 +1,10 @@
-\import java.io.*;
+import java.io.*;
 import java.net.*;
 import java.util.*;
 
 public class FirstPlayer {
 
         public static void main(String[] arg) throws Exception {
-
                 ArrayList<Player> players = new ArrayList<>();
 
                 //Gets keyboard input from the user
@@ -81,11 +80,11 @@ public class FirstPlayer {
 
                 Boolean hasWinner = false;
                 String winner = "none";
-
-                //int n = 0;
+                
                 while (!hasWinner) {
                         if (player == players.get(0)) {
                                 System.out.println("--------------------\nHi " + player.name + "! It's your turn.\n");
+                                Number num = Number.FIVE;
                                 Card playedCard = player.playCard(gameState.getColor(), gameState.getNumber(), keyboard);
                                 if (playedCard == null) {
                                         playedCard = player.playAfterDraw(gamePiles.draw(), gameState.getColor(), gameState.getNumber(), keyboard);
@@ -102,11 +101,16 @@ public class FirstPlayer {
                                         }
                                 } else if (playedCard == null) {
                                         player = gameState.update(null, null);
+                                        num = null;
                                 }
                                 Color col = gameState.getColor();
                                 serverOutputStream.writeObject(col);
-
-                                Number num = gameState.getNumber();
+                                //
+                                if (num == null) {
+                                        num = null;
+                                } else {
+                                        num = gameState.getNumber();
+                                }
                                 serverOutputStream.writeObject(num);
                                 if (num == Number.DRAW2) {
                                         for (int i = 0; i < 2; i++) {
@@ -152,9 +156,6 @@ public class FirstPlayer {
 
                                 player = gameState.update(col, num);
                         }
-                        //n++;
-                        //serverOutputStream.writeObject(n);
-                        //serverOutputStream.writeObject(players.get(0).hand.size());
                         int player1size = (int)serverInputStream.readObject();
                         if (players.get(0).hand.size() == 0) {
                                 hasWinner = true;
