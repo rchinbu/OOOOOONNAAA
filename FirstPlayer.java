@@ -5,7 +5,6 @@ import java.util.*;
 public class FirstPlayer {
 
         public static void main(String[] arg) throws Exception {
-
                 ArrayList<Player> players = new ArrayList<>();
 
                 //Gets keyboard input from the user
@@ -41,7 +40,7 @@ public class FirstPlayer {
                         players.get(0).giveCard(gamePiles.draw());
                 }
 
-                //pass out to other players
+                                //pass out to other players
                 for (int i = 0; i < 7; i++) {
                         serverOutputStream.writeObject(gamePiles.draw());
                 }
@@ -58,53 +57,39 @@ public class FirstPlayer {
                 Number firstNumber = gamePiles.topDiscardCard().getNumber();
                 serverOutputStream.writeObject(firstNumber);
 
-                if (firstColor == Color.WILD) {
-                        firstColor = (Color)serverInputStream.readObject();
-                }
                 if (firstNumber == Number.DRAW2) {
                         for (int i = 0; i < 2; i++) {
                                 serverOutputStream.writeObject(gamePiles.draw());
                         }
-                }
-                if (firstNumber == Number.DRAW4) {
+                } else if (firstNumber == Number.DRAW4) {
                         for (int i = 0; i < 4; i++) {
                                 serverOutputStream.writeObject(gamePiles.draw());
                         }
                 }
 
+                if (firstColor == Color.WILD) {
+                        System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
+                        firstColor = (Color)serverInputStream.readObject();
+                        System.out.println("They chose: " + firstColor);
+                } else if (firstNumber == Number.REVERSE) {
+                        System.out.println("First card is reverse! Forfeit your turn.\n");
+                }
+
                 GameState gameState = new GameState(players, firstColor, firstNumber);
-//              serverOutputStream.writeObject(gameState);
-
-//              String receiveMessage, sendMessage;
-//                while(true) {
-//                      sendMessage = keyboard.nextLine();
-//                      serverOutputStream.writeObject(sendMessage);
-//                      if (sendMessage.equals("exit")) {
-//                              break;
-//                      }
-                        /////////////////////////////////////////////////////
-//                      receiveMessage=(String)serverInputStream.readObject();
-//                      if (receiveMessage.equals("exit")) {
-//                      break;
-//                      }
-//                      System.out.println(receiveMessage);
-//               }
-
                 Player player = gameState.getTurn();
-                serverOutputStream.writeObject(player);
-
-                serverOutputStream.writeObject(gameState.getColor());
-                serverOutputStream.writeObject(gameState.getNumber());
 
                 Boolean hasWinner = false;
                 String winner = "none";
-                while(!hasWinner) {
+                
+                while (!hasWinner) {
                         if (player == players.get(0)) {
-                                System.out.println("Hi, " + player.name + "! It's your turn.\n");
+                                System.out.println("--------------------\nHi " + player.name + "! It's your turn.\n");
+                                Number num = Number.FIVE;
                                 Card playedCard = player.playCard(gameState.getColor(), gameState.getNumber(), keyboard);
                                 if (playedCard == null) {
                                         playedCard = player.playAfterDraw(gamePiles.draw(), gameState.getColor(), gameState.getNumber(), keyboard);
                                 }
+                                serverOutputStream.writeObject(playedCard);
                                 if (playedCard != null) {
                                         gamePiles.discardCard(playedCard);
                                         player.removeCard(playedCard);
@@ -114,65 +99,80 @@ public class FirstPlayer {
                                         } else {
                                                 player = gameState.update(playedCard.getColor(), playedCard.getNumber());
                                         }
-                                } else {
+                                } else if (playedCard == null) {
                                         player = gameState.update(null, null);
+                                        num = null;
                                 }
-
-                                serverOutputStream.writeObject(player);
-                                serverOutputStream.writeObject(gameState);
-                                serverOutputStream.writeObject(gameState.getColor());
-                                serverOutputStream.writeObject(gameState.getNumber());
-                                if (gameState.getNumber() == Number.DRAW2) {
+                                Color col = gameState.getColor();
+                                serverOutputStream.writeObject(col);
+                                //
+                                if (num == null) {
+                                        num = null;
+                                } else {
+                                        num = gameState.getNumber();
+                                }
+                                serverOutputStream.writeObject(num);
+                                if (num == Number.DRAW2) {
                                         for (int i = 0; i < 2; i++) {
                                                 serverOutputStream.writeObject(gamePiles.draw());
                                         }
-                                } else if (gameState.getNumber() == Number.DRAW4) {
+                                } else if (num == Number.DRAW4) {
                                         for (int i = 0; i < 4; i++) {
                                                 serverOutputStream.writeObject(gamePiles.draw());
                                         }
                                 }
                         } else {
-                                System.out.println("It is currently " + player.name + "'s turn. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "...\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)serverInputStream.readObject();
                                 if (playedCard == null) {
                                         serverOutputStream.writeObject(gamePiles.draw());
-                                        playedCard = (Card)serverInputStream.readObject();
                                 }
+                                playedCard = (Card)serverInputStream.readObject();
 
                                 if (playedCard != null) {
-                                        gamePiles.discardCard(playedCard);
+                                        gamePiles.discardCard((Card)serverInputStream.readObject());
                                 }
 
-                                player = gameState.update(playedCard.color, playedCard.number);
-                                if (playedCard.getNumber() == Number.DRAW2) {
+                                Color col = (Color)serverInputStream.readObject();
+                                Number num = (Number)serverInputStream.readObject();
+                                if (playedCard != null) {
+                                        if (playedCard.getColor() == Color.WILD) {
+                                                System.out.println("Card played was wild. " + player.name + " chose " + col + "\n");
+                                        }
+                                }
+                                if (num == Number.DRAW2) {
+                                        System.out.println("Card played was DRAW2! Draw 2 cards and forfeit your turn.\n");
                                         for (int i = 0; i < 2; i++) {
-                                                player.giveCard(gamePiles.draw());
-                                        }
-                                } else if (playedCard.getNumber() == Number.DRAW4) {
+                                                players.get(0).giveCard(gamePiles.draw());
+                                                }
+                                } else if (num == Number.DRAW4) {
+                                        System.out.println("Card played was DRAW4! Draw 4 cards and forfeit your turn.\n");
                                         for (int i = 0; i < 4; i++) {
-                                                player.giveCard(gamePiles.draw());
-                                        }
+                                                players.get(0).giveCard(gamePiles.draw());
+                                                }
+                                } else if (num == Number.SKIP) {
+                                        System.out.println("Card played was SKIP! Forfeit your turn.\n");
                                 }
-                                serverOutputStream.writeObject(player);
-                        }
 
-                        if (players.get(0).hand.isEmpty()) {
+                                player = gameState.update(col, num);
+                        }
+                        int player1size = (int)serverInputStream.readObject();
+                        if (players.get(0).hand.size() == 0) {
                                 hasWinner = true;
                                 winner = players.get(0).name;
-                        } else if ((Boolean)serverInputStream.readObject()) {
+                        } else if (player1size == 0) {
                                 hasWinner = true;
                                 winner = players.get(1).name;
                         }
+
                         serverOutputStream.writeObject(hasWinner);
                         serverOutputStream.writeObject(winner);
                 }
-
                 if (winner.equals(players.get(0).name)) {
-                        System.out.println("You're the winner of OONA!");
-                } else {
-                        System.out.println("I'm sorry, you lost! " + players.get(1).name + " is the winner.");
+                        System.out.println("\nCongratulations! You have gained the prestigious title of OONA winner, " + winner + "!");
+                } else if (winner.equals(players.get(1).name)) {
+                        System.out.println("\nSorry, you suck. The winner is " + players.get(1).name + ".");
                 }
-
                 serverOutputStream.close();
                 serverInputStream.close();
         }
