@@ -144,7 +144,7 @@ public class SecondPlayer {
                 if (winner.equals(players.get(1).name)) {
                         System.out.println("\nCongratulations! You have gained the prestigious title of OONA winner, " + winner + "!");
                 } else if (winner.equals(players.get(0).name)) {
-                        System.out.println("\nSorry, you suck. The winner is " + players.get(1).name + ".");
+                        System.out.println("\nSorry, you suck. The winner is " + winner + ".");
                 }
 
                 clientOutputStream.close();
