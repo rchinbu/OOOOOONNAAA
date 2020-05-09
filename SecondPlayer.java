@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class SecondPlayer {
+public class Client {
 
         public static void main(String[] arg) throws Exception {
 
@@ -75,6 +75,7 @@ public class SecondPlayer {
                 while(!hasWinner) {
                         if (player == players.get(1)) {
                                 System.out.println("--------------------\nHi " + player.name + "! It's your turn.\n");
+                                Number num = Number.FIVE;
                                 Card playedCard = player.playCard(gameState.getColor(), gameState.getNumber(), keyboard);
                                 clientOutputStream.writeObject(playedCard);
 
@@ -94,10 +95,16 @@ public class SecondPlayer {
                                         }
                                 } else if (playedCard == null) {
                                         player = gameState.update(null, null);
+                                        num = null;
                                 }
+
                                 Color col = gameState.getColor();
                                 clientOutputStream.writeObject(col);
-                                Number num = gameState.getNumber();
+                                if (num == null) {
+                                        num = null;
+                                } else {
+                                        num = gameState.getNumber();
+                                }
                                 clientOutputStream.writeObject(num);
                         } else {
                                 System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
