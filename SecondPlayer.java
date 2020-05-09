@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Client {
+public class SecondPlayer {
 
         public static void main(String[] arg) throws Exception {
 
