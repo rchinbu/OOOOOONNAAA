@@ -1185,7 +1185,7 @@ public class OONA  {
                                         for (int i = 0; i < 4; i++) {
                                                 secondOutputStream.writeObject(gamePiles.draw());
                                         }
-                                } else if (num == Number.SKIP && gameState.getDirection() == 1) {
+                                } else if (num == Number.SKIP && gameState.getDirection() == -1) {
                                         System.out.println("Card played was SKIP. " + players.get(2).name + " forfeits their turn.\n");
                                 } else if (num == Number.REVERSE) {
                                         System.out.println("Card played was REVERSE! Reverse direction.\n");
