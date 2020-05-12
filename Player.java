@@ -9,13 +9,6 @@ public class Player implements Serializable {
         public Player(String name) {
                 this.name = name;
                 this.hand = new ArrayList<Card>();
-
-                //added this back for the sake of the first version
-                //for(int i = 0; i < 7; i++) {
-                //        this.getCards();
-                //}
-                //putting comments around it to know we have to work on it
-                //I think this for loop should be in GamePlay.java as its related to deck
         }
 
         public void giveCard(Card card) {
@@ -66,7 +59,11 @@ public class Player implements Serializable {
 
         public Color chooseColor(Scanner input) {
                 boolean validInput = false;
-                System.out.println("Wild card! Which color would you like to choose? Your options are RED, GREEN, YELLOW, and BLUE");
+                System.out.println("Wild card! Here are the cards in your hand: \n");
+                for (Card card : hand) {
+                        System.out.println(card.toString());
+                }
+                System.out.println("\nWhich color would you like to choose? Your options are RED, GREEN, YELLOW, and BLUE.");
                 while (true) {
                         String chosenColor = input.nextLine();
                         if (chosenColor.equals("RED")) {
