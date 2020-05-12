@@ -26,7 +26,7 @@ public class GameState implements Serializable {
 
         private Player specialCase(Number number) {
                 if (number == Number.REVERSE) {
-                        direction = -1;
+                        direction = direction * -1;
                         turn = (turn + direction + players.size()) % players.size();
                         return players.get(turn);
                 } else {
@@ -68,7 +68,7 @@ public class GameState implements Serializable {
                 return players.get(turn);
         }
 
-        public Player getNextTurn() {
-                return players.get(turn + 1);
+        public int getDirection() {
+                return direction;
         }
 }
