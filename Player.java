@@ -3,10 +3,10 @@ import java.io.Serializable;
 
 public interface Player extends Serializable {
 
-        //ArrayList<Card> hand;
-        //String name;
+        ArrayList<Card> hand;
+        String name;
 
-        //public Player(String name);
+        public Player(String name);
 
         public void giveCard(Card card);
 
