@@ -1052,11 +1052,11 @@ public class OONA  {
                                 }
 				if (num == Number.DRAW2 && gameState.getDirection() == -1) {
                                         for (int i = 0; i < 2; i++) {
-                                                secondOutputStream.writeObject(gamePiles.draw());
+                                                thirdOutputStream.writeObject(gamePiles.draw());
                                         }
                                 } else if (num == Number.DRAW4 && gameState.getDirection() == -1) {
                                         for (int i = 0; i < 4; i++) {
-                                                secondOutputStream.writeObject(gamePiles.draw());
+                                                thirdOutputStream.writeObject(gamePiles.draw());
                                         }
                                 }
                         } else if (player == players.get(1)) {
