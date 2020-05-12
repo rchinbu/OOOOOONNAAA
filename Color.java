@@ -29,7 +29,7 @@ public enum Color implements Serializable {
 			} else if (color == Color.YELLOW) {
 				return ANSI_YELLOW_BACKGROUND + "YELLOW" + ANSI_RESET;
 			} else {
-				return ANSI_RED + "W" + ANSI_BLUE + "I" + ANSI_GREEN + "L" + ANSI_YELLOW + "D";
+				return ANSI_RED + "W" + ANSI_BLUE + "I" + ANSI_GREEN + "L" + ANSI_YELLOW + "D" + ANSI_RESET;
 			}
         }
 }
