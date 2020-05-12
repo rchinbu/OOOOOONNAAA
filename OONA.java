@@ -89,7 +89,7 @@ public class OONA  {
 		if (firstColor == Color.WILD) {
                         System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
                         firstColor = (Color)serverInputStream.readObject();
-                        System.out.println("They chose: " + firstColor);
+                        System.out.println("They chose: " + Color.getPrintableColor(firstColor));
                 }
 
                 GameState gameState = new GameState(players, firstColor, firstNumber);
@@ -137,7 +137,7 @@ public class OONA  {
                                         }
                                 }
                         } else {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)serverInputStream.readObject();
                                 if (playedCard == null) {
                                         serverOutputStream.writeObject(gamePiles.draw());
@@ -287,13 +287,13 @@ public class OONA  {
                                 }
                                 clientOutputStream.writeObject(num);
                         } else {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)clientInputStream.readObject();
                                 Color col = (Color)clientInputStream.readObject();
                                 Number num = (Number)clientInputStream.readObject();
                                 if (playedCard != null) {
                                         if (playedCard.getColor() == Color.WILD) {
-                                                System.out.println("Card played was wild. " + player.name + " chose " + col + "\n");
+                                                System.out.println("Card played was wild. " + player.name + " chose " + Color.getPrintableColor(col) + "\n");
                                         }
                                 }
                                 if (num == Number.DRAW2) {
@@ -409,7 +409,7 @@ public class OONA  {
 		if (firstColor == Color.WILD) {
                         System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
                         firstColor = (Color)firstInputStream.readObject();
-                        System.out.println("They chose: " + firstColor);
+                        System.out.println("They chose: " + Color.getPrintableColor(firstColor));
                         firstOutputStream.writeObject(firstColor);
                         secondOutputStream.writeObject(firstColor);
                 }
@@ -474,7 +474,7 @@ public class OONA  {
                                         }
                                 }
                         } else if (player == players.get(1)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)firstInputStream.readObject();
                                 if (playedCard == null) {
                                         firstOutputStream.writeObject(gamePiles.draw());
@@ -519,7 +519,7 @@ public class OONA  {
                                 }
                                 player = gameState.update(col, num);
                         } else if (player == players.get(2)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)secondInputStream.readObject();
                                 if (playedCard == null) {
                                         secondOutputStream.writeObject(gamePiles.draw());
@@ -669,7 +669,7 @@ public class OONA  {
                         } else if (myName.equals(players.get(2).name)) {
                                 System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
                                 firstColor = (Color)clientInputStream.readObject();
-                                System.out.println("They chose: " + firstColor);
+                                System.out.println("They chose: " + Color.getPrintableColor(firstColor));
                         }
                 }
 
@@ -681,13 +681,13 @@ public class OONA  {
 
                 while(!hasWinner) {
                         if (player == players.get(0)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)clientInputStream.readObject();
                                 Color col = (Color)clientInputStream.readObject();
                                 Number num = (Number)clientInputStream.readObject();
                                 if (playedCard != null) {
                                         if (playedCard.getColor() == Color.WILD) {
-                                                System.out.println("Card played was wild. " + player.name + " chose " + col + "\n");
+                                                System.out.println("Card played was wild. " + player.name + " chose " + Color.getPrintableColor(col) + "\n");
                                         }
                                 }
                                 if (num == Number.DRAW2 && gameState.getDirection() == 1) {
@@ -779,7 +779,7 @@ public class OONA  {
                                         }
                                         clientOutputStream.writeObject(num);
                                 } else {
-                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                         Card playedCard = (Card)clientInputStream.readObject();
                                         Color col = (Color)clientInputStream.readObject();
                                         Number num = (Number)clientInputStream.readObject();
@@ -838,7 +838,7 @@ public class OONA  {
                                         }
                                         clientOutputStream.writeObject(num);
                                 } else if (myName.equals(players.get(1).name)) {
-                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                         Card playedCard = (Card)clientInputStream.readObject();
                                         Color col = (Color)clientInputStream.readObject();
                                         Number num = (Number)clientInputStream.readObject();
@@ -991,7 +991,7 @@ public class OONA  {
                 if (firstColor == Color.WILD) {
                         System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
                         firstColor = (Color)firstInputStream.readObject();
-                        System.out.println("They chose: " + firstColor);
+                        System.out.println("They chose: " + Color.getPrintableColor(firstColor));
                         firstOutputStream.writeObject(firstColor);
                         secondOutputStream.writeObject(firstColor);
                         thirdOutputStream.writeObject(firstColor);
@@ -1060,7 +1060,7 @@ public class OONA  {
                                         }
                                 }
                         } else if (player == players.get(1)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)firstInputStream.readObject();
                                 if (playedCard == null) {
                                         firstOutputStream.writeObject(gamePiles.draw());
@@ -1110,7 +1110,7 @@ public class OONA  {
 
                                 player = gameState.update(col, num);
                         } else if (player == players.get(2)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)secondInputStream.readObject();
                                 if (playedCard == null) {
                                         secondOutputStream.writeObject(gamePiles.draw());
@@ -1158,7 +1158,7 @@ public class OONA  {
 
                                 player = gameState.update(col, num);
                         } else if (player == players.get(3)) {
-                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                 Card playedCard = (Card)thirdInputStream.readObject();
                                 if (playedCard == null) {
                                         thirdOutputStream.writeObject(gamePiles.draw());
@@ -1326,7 +1326,7 @@ public class OONA  {
                         } else {
                                    System.out.println("First card is a wild card! " + players.get(1).name + " must pick a color.");
                                 firstColor = (Color)clientInputStream.readObject();
-                                System.out.println("They chose: " + firstColor);
+                                System.out.println("They chose: " + Color.getPrintableColor(firstColor));
                         }
                 }
 
@@ -1344,7 +1344,7 @@ public class OONA  {
                                 Number num = (Number)clientInputStream.readObject();
                                 if (playedCard != null) {
                                         if (playedCard.getColor() == Color.WILD) {
-                                                System.out.println("Card played was wild. " + player.name + " chose " + col + "\n");
+                                                System.out.println("Card played was wild. " + player.name + " chose " + Color.getPrintableColor(col) + "\n");
                                         }
                                 }
                                 if (num == Number.DRAW2 && gameState.getDirection() == 1) {
@@ -1436,7 +1436,7 @@ public class OONA  {
                                         }
                                         clientOutputStream.writeObject(num);
                                 } else {
-                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                         Card playedCard = (Card)clientInputStream.readObject();
                                         Color col = (Color)clientInputStream.readObject();
                                         Number num = (Number)clientInputStream.readObject();
@@ -1510,7 +1510,7 @@ public class OONA  {
                                         }
                                         clientOutputStream.writeObject(num);
                                 } else {
-                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                         Card playedCard = (Card)clientInputStream.readObject();
                                         Color col = (Color)clientInputStream.readObject();
                                         Number num = (Number)clientInputStream.readObject();
@@ -1605,7 +1605,7 @@ public class OONA  {
                                         }
                                         clientOutputStream.writeObject(num);
                                 } else {
-                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + gameState.getColor() + " " + gameState.getNumber() + "\n");
+                                        System.out.println("--------------------\nIt's " + player.name + "'s turn right now. They are playing to " + Color.getPrintableColor(gameState.getColor()) + " " + gameState.getNumber() + "\n");
                                         Card playedCard = (Card)clientInputStream.readObject();
                                         Color col = (Color)clientInputStream.readObject();
                                         Number num = (Number)clientInputStream.readObject();

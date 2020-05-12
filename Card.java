@@ -18,7 +18,7 @@ public class Card implements Serializable {
         }
 
         public String toString() {
-                return this.color.toString() + " " + this.number.toString();
+                return Color.getPrintableColor(color) + " " + this.number.toString();
         }
 
         public boolean isValidPlay(Color color, Number number) {
