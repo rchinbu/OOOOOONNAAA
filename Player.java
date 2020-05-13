@@ -26,7 +26,7 @@ public class Player implements Serializable {
                                 available.add(card);
                         }
                 }
-                System.out.println("Here is the card to play to: " + Color.getPrintableColor(lastColor) + " " + lastNumber + "\n");
+                System.out.println("Here is the card to play to: " + Color.getPrintableColor(lastColor) + "" + Color.getPrintableNumber(lastColor, lastNumber) + "\n");
                 if (!available.isEmpty()) {
                         System.out.println("Here are your cards");
                         for (Card card : hand) {
